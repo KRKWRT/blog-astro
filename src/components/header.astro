@@ -1,0 +1,65 @@
+---
+const navLinks = [
+    { href: "/", text: "Home" },
+    { href: "/about", text: "About" },
+    { href: "/blog", text: "Blog" },
+];
+---
+<head>
+    <link rel="global" href="../styles/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=M+PLUS+1:wght@100..900&display=swap" rel="global">
+  </head>
+</head>
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <ul class="nav-list">
+        {navLinks.map(link => (
+          <li class="nav-item">
+            <a href={link.href} class="nav-link">{link.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    padding: 8px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: flex-end; /* 右寄せ */
+    align-items: center;
+  }
+
+  .nav-list {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.7rem;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #4666ff;
+    font-size: 2.2rem;
+  }
+</style>

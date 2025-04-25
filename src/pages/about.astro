@@ -1,0 +1,145 @@
+---
+import "../styles/global.css";
+import Header from "../components/header.astro";
+import { Image } from 'astro:assets';
+import profileimg from `../assets/IMG_1455.PNG`;
+import Footer from "../components/footer.astro";
+
+const pageTitle = "Profile";
+
+---
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <link rel="global" href="../styles/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kiwi+Maru&display=swap" rel="global">
+  </head>
+
+  <body>
+    <Header/>
+    <div class="container">
+    <div class="blank"></div>
+    <h2>{pageTitle}</h2>
+    <div>
+      <div class="container_pic">
+        <Image src={profileimg} alt="A photo of me" width="200" height="200"/>
+        <p class="name">Ryo</p>
+      </div>
+        <p class="read">
+          私のサイトにようこそ!　現在大学4年生です。
+          <br>ここでは私の勉強や趣味のことについて書いていきます。
+          <br>とりあえず、ゆっくりしていってくださいな。
+        </p>
+    </div>
+
+    <h2>History</h2>
+    <div class="container_sentence">
+      <div class="sentence">
+        <p> 2019~2024 : NITTC (豊田高専)</p>
+        <p>↓</p>
+        <p>2024~ : TUT (豊橋技術科学大学)</p>
+        <br>
+        <ul>
+          <li>KKDJの元店員</li>
+          <li>R5年度20歳の集い(成人式)<br>役割 : 司会と動画編集</li>
+          <li>アメリカで1ヶ月のホームステイ</li>
+          <li>HackU in Kanazawa に出場 </li>        
+        </ul>
+      </div>
+    </div>
+    <br>
+    <h2>Others</h2>
+      <div class="container_sentence">
+        <div class="sentence2">
+          <p><a href="https://github.com/KRKWRT">Github</a>--- 私のgithubアカウントはこちらから</p>
+          <p><a href="https://github.com/KRKWRT">しずかなインターネット</a>--- 趣味のことを書いてます</p>
+        </div>
+      </div>
+    <Footer/>
+  </body>
+</html>
+
+<style>
+  .container{
+    background-image: url("../assets/Colored_Shapes_about.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    width: 100%;
+  }
+  h2 {
+    display:flex;
+    font-size: 40px;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    padding: 10px;
+    justify-content: center;
+  }
+  p{
+    font-family: "Kiwi Maru", serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+  li{
+    font-family: "Kiwi Maru", serif;
+    font-weight: 600;
+    list-style:circle;
+  }
+  a{
+    color: black; /* リンクの文字色を黒に設定 */
+  }
+  .blank {
+    height: 40px;
+  }
+  .read {
+    font-size: 20px;
+    padding: 10px;
+    text-align: center; /* テキストを中央揃え */
+  }
+  .container_pic {
+    display: flex; 
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    align-items: center; /* 水平方向に中央揃え */
+  }
+  .name {
+    font-size: 30px;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    padding: 10px;
+  }
+
+  .container_sentence {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+  }
+  .sentence{
+    font-size: 1.5rem;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+  }
+
+  .sentence2{
+    font-size: 1.3rem;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+    margin-bottom: 30px;
+    width: 90vw;
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+const pageTitle = "Study Blog";
+const articleNumber = 1;
+var article = true;
+if (articleNumber <= 8) {
+  article = true;
+}else{
+  article = false;
+}
+
+import "../styles/global.css";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
+
+---
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <link rel="global" href="../styles/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kiwi+Maru&display=swap" rel="global">
+  </head>
+
+  <body>
+    <Header />
+    <div class="container">
+      <div class="blank"></div>
+      <h1>{pageTitle}</h1>
+      <div class="blog-list">
+        <div class="blog-card">
+          <h2>初めてのブログ</h2>
+          <p>はじめてホームページを作ってみました</p>
+          <a href="../article/blog1" class="read-more">続きを読む</a>
+        </div>
+      </div>
+      <p class="blank2">記事はここまで。</p>
+    </div>
+  <Footer />
+  </body>
+
+</html>
+
+<style>
+  .container {
+    background-image: url("../assets/Colored_Shapes_blog.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-blend-mode: lighten;
+    margin: 0;
+    height: auto;
+    width: 100%;
+  }
+  .blank {
+    height: 60px;
+  }
+  .blank2 {
+    font-size: 1.5em;
+    text-align: center;
+    height: 64vh;
+  }
+  h1 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    text-align: center;
+    margin:0;
+  }
+  .blog-list {
+  display: grid; /* グリッドレイアウトを使用 */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* カードを自動的に並べる */
+  gap: 20px; /* カード間の間隔 */
+  padding: 20px; /* 全体の余白 */
+  }
+
+  .blog-card {
+    background-color: white; /* カードの背景色 */
+    border: 1px solid #ddd; /* 枠線を追加 */
+    border-radius: 10px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+    padding: 20px; /* 内側の余白 */
+    transition: transform 0.2s, box-shadow 0.2s; /* ホバー時のアニメーション */
+  }
+
+  .blog-card:hover {
+    transform: translateY(-5px); /* ホバー時に少し浮き上がる */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* ホバー時の影を強調 */
+  }
+
+  .blog-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .blog-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .blog-card .read-more {
+    display: inline-block;
+    font-size: 1rem;
+    color: #0078d4;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+
+  .blog-card .read-more:hover {
+    color: #0056a3; /* ホバー時のリンク色 */
+  }
+</style>
+

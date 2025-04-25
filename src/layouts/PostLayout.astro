@@ -1,0 +1,89 @@
+---
+const { frontmatter } = Astro.props;
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
+---
+<html>
+  <head>
+    <title>{frontmatter.title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta charset="utf-8" />
+    <link rel="global" href="../styles/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kiwi+Maru&display=swap" rel="global">
+  </head>
+  <body>
+    <div class="container">
+      <Header />
+      <div class="blank"></div>
+      <div></div>
+      <div>
+        <h1 class="title">{frontmatter.title} by {frontmatter.author}</h1>
+      </div>
+      <div></div>
+      <div></div>
+      <div class="main" >
+      <slot  />
+      </div>
+      <div></div>
+      <p>Written on: {frontmatter.date}</p>    
+    </div> 
+    <Footer/>  
+  </body>
+</html>
+<style>
+  body {
+    margin: 0; /* デフォルトのマージンをリセット */
+    padding: 0; /* デフォルトのパディングをリセット */
+    font-family: "Kiwi Maru", serif;
+    font-weight: 600;
+    font-style: normal;
+    background-color: #f0f0f0; /* 背景色を指定 */
+  }
+  h1 {
+    font-family: 'Dancing Script', cursive; /* フォントファミリーを指定 */
+    font-size: 2.5em; /* フォントサイズを指定 */
+    text-align: center; /* テキストを中央揃え */
+  }
+  .container {
+    background-image: url("../assets/Colored_Patterns.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-blend-mode: lighten;
+    width: 100%;
+    height: auto; /* ビューポートの高さに合わせる */
+    display: flex; /* フレックスボックスを有効化 */
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    justify-content: center; /* 垂直方向に中央揃え */
+    align-items: center; /* 水平方向に中央揃え */
+  }
+  .blank {
+    height: 60px;
+  }
+  .title{
+    background-color: rgba(255, 255, 255, 1);
+    border: 2px solid #ccc; /* 薄いグレーの枠線を追加 */
+    border-radius: 10px; /* 角を丸くする */
+    display: flex; 
+    width: 70vw;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+  }
+  .main{
+    background-color: rgba(255, 255, 255, 1);
+    border: 2px solid #ccc; /* 薄いグレーの枠線を追加 */
+    border-radius: 10px; /* 角を丸くする */
+    display: flex; 
+    width: 70vw;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+  }
+</style>
