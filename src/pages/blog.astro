@@ -1,121 +1,209 @@
 ---
 const pageTitle = "Study Blog";
-const articleNumber = 1;
-var article = true;
-if (articleNumber <= 8) {
-  article = true;
-}else{
-  article = false;
-}
+const posts = [
+  {
+    slug: "blog1",
+    title: "初めてのブログ",
+    description: "はじめてホームページを作ってみました。制作の過程で学んだことや、今後の目標について書いています。",
+    date: "2025-06-10",
+    tags: ["雑記"],
+  },
+];
 
-import "../styles/global.css";
 import Header from "../components/header.astro";
 import Footer from "../components/footer.astro";
-
 ---
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-    <link rel="global" href="../styles/global.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kiwi+Maru&display=swap" rel="global">
-  </head>
 
-  <body>
-    <Header />
-    <div class="container">
-      <div class="blank"></div>
-      <h1>{pageTitle}</h1>
-      <div class="blog-list">
-        <div class="blog-card">
-          <h2>初めてのブログ</h2>
-          <p>はじめてホームページを作ってみました</p>
-          <a href="../article/blog1" class="read-more">続きを読む</a>
-        </div>
-      </div>
-      <p class="blank2">記事はここまで。</p>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{pageTitle}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+  <Header />
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">{pageTitle}</h1>
+      <p class="page-subtitle">学習の記録や日々の考えを綴っていきます。</p>
     </div>
-  <Footer />
-  </body>
 
+    <div class="blog-grid">
+      {posts.map((post, index) => (
+        <article class="blog-card animate-on-scroll" style={`--animation-order: ${index}`}>
+          <div class="card-content">
+            <div class="card-meta">
+              <time class="card-date" datetime={post.date}>
+                <span class="material-symbols-outlined">calendar_month</span>
+                {post.date}
+              </time>
+              <div class="card-tags">
+                {post.tags.map(tag => (
+                  <span class="card-tag">{tag}</span>
+                  ))}
+              </div>
+            </div>
+            <h2 class="card-title">
+              <a href={`/article/${post.slug}`}>{post.title}</a>
+            </h2>
+            <p class="card-description">{post.description}</p>
+            <a href={`/article/${post.slug}`} class="card-read-more">
+            続きを読む
+            <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</body>
 </html>
 
-<style>
-  .container {
-    background-image: url("../assets/Colored_Shapes_blog.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.3);
-    background-blend-mode: lighten;
+<style is:global>
+  :root {
+    --color-background: #ffffff;
+    --color-background-body: #f7f9fc;
+    --color-text-primary: #202124;
+    --color-text-secondary: #5f6368;
+    --color-accent: #1a73e8;
+    --color-border: #e0e0e0;
+    --font-family-base: 'Noto Sans JP', sans-serif;
+    --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  body {
     margin: 0;
-    height: auto;
-    width: 100%;
-  }
-  .blank {
-    height: 60px;
-  }
-  .blank2 {
-    font-size: 1.5em;
-    text-align: center;
-    height: 64vh;
-  }
-  h1 {
-    font-family: "Dancing Script", cursive;
-    font-optical-sizing: auto;
-    font-weight: <weight>;
-    font-style: normal;
-    text-align: center;
-    margin:0;
-  }
-  .blog-list {
-  display: grid; /* グリッドレイアウトを使用 */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* カードを自動的に並べる */
-  gap: 20px; /* カード間の間隔 */
-  padding: 20px; /* 全体の余白 */
-  }
-
-  .blog-card {
-    background-color: white; /* カードの背景色 */
-    border: 1px solid #ddd; /* 枠線を追加 */
-    border-radius: 10px; /* 角を丸くする */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
-    padding: 20px; /* 内側の余白 */
-    transition: transform 0.2s, box-shadow 0.2s; /* ホバー時のアニメーション */
-  }
-
-  .blog-card:hover {
-    transform: translateY(-5px); /* ホバー時に少し浮き上がる */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* ホバー時の影を強調 */
-  }
-
-  .blog-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-
-  .blog-card p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 15px;
-  }
-
-  .blog-card .read-more {
-    display: inline-block;
-    font-size: 1rem;
-    color: #0078d4;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s;
-  }
-
-  .blog-card .read-more:hover {
-    color: #0056a3; /* ホバー時のリンク色 */
+    font-family: var(--font-family-base);
+    background-color: var(--color-background-body);
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
+<style>
+.main-content {
+  padding: 2rem 0 0;
+  flex-grow: 1; /* この要素が余白を埋めるように伸びる */
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.page-title {
+  display: inline-block;
+  position: relative;
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+}
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 0 1.5rem 4rem;
+}
+
+@keyframes cardFadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-on-scroll { opacity: 0; }
+.animate-on-scroll.in-view {
+  animation: cardFadeInUp 0.6s ease-out forwards;
+  animation-delay: calc(var(--animation-order, 0) * 100ms);
+}
+
+.blog-card {
+  display: flex; flex-direction: column;
+  background-color: var(--color-background);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-card-hover);
+  border-top-color: var(--color-accent);
+}
+
+.card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem; }
+.card-date { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; }
+.card-date .material-symbols-outlined { font-size: 1.1rem; color: var(--color-accent); }
+
+.card-tags { display: flex; gap: 0.5rem; }
+
+.card-tag {
+  color: var(--color-text-secondary);
+  background-color: #eef2f6;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.card-tag:hover {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+.card-title a { color: var(--color-text-primary); text-decoration: none; }
+.card-title a:hover { color: var(--color-accent); }
+
+.card-description { color: var(--color-text-secondary); line-height: 1.7; flex-grow: 1; margin-bottom: 1.5rem; }
+
+.card-read-more { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--color-accent); text-decoration: none; font-weight: 700; align-self: flex-start; }
+.card-read-more:hover { text-decoration: underline; }
+.card-read-more .material-symbols-outlined { font-size: 1.2rem; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+.card-read-more:hover .material-symbols-outlined { transform: translateX(5px) scale(1.1); }
+</style>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  rootMargin: '0px',
+  threshold: 0.1
+});
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.observe(el);
+});
+</script>

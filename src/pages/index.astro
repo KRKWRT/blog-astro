@@ -1,100 +1,200 @@
 ---
-const pageTitle = "Welcome to Ryo's Website!";
-
-import "../styles/global.css";
-// Componentのインポート
+// --- ページ情報とコンポーネント ---
+const pageTitle = "Ryo's Website";
 import Footer from "../components/footer.astro";
 
+// --- ナビゲーションデータ ---
 const navLinks = [
     { href: "/", text: "Home" },
-    { href: "/about", text: "About" },
+    { href: "/about", text: "Profile" },
     { href: "/blog", text: "Blog" },
 ];
 ---
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Welcome to {pageTitle}</title>
 
-<html>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
 
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-    <link rel="global" href="../styles/global.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=M+PLUS+1:wght@100..900&display=swap" rel="global">
-  </head>
-
-  <body>
-  <!-- componentの呼び出し -->
-    <div class="container">
-      <h1 class="pagetitle">{pageTitle}</h1>
-      <div class="container2">
-        <nav class="nav">
-          <ul class="nav-list">
-            {navLinks.map(link => (
-              <li class="nav-item">
-                <a href={link.href} class="nav-link">{link.text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+<body>
+  <main class="center-focus-layout">
+    <div class="background-overlay"></div>
+    <div class="content-wrapper">
+      <h1 class="main-title">Welcome to Ryo's Page</h1>
+      <p class="subtitle">
+        こちらは適当に記録を残していくサイトです。
+      </p>
+      <nav class="primary-nav">
+        <ul class="nav-list">
+          {navLinks.map((link, index) => (
+            <li class="nav-item" style={`--animation-delay: ${index * 100}ms`}>
+              <a href={link.href} class="nav-link">{link.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
-    <Footer/>
-  </body>
+  </main>
 
+  <Footer />
+  </body>
 </html>
 
-<style>
-  .container {
-    background-image: url("../assets/Colored_Shapes.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.3);
-    background-blend-mode: lighten;
+<style is:global>
+  :root {
+    --color-background: #ffffff;
+    --color-background-body: #f7f9fc;
+    --color-text-primary: #202124;
+    --color-text-secondary: #5f6368;
+    --color-accent: #1a73e8;
+    --color-accent-dark: #1662c7;
+    --color-border: #e0e0e0;
+    --font-family-base: 'Noto Sans JP', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
     margin: 0;
-    height: 96vh;
-    width: 100%;
-    display: flex; /* フレックスボックスを有効化 */
-    flex-direction: column; /* 子要素を縦方向に並べる */
-    justify-content: center; /* 垂直方向に中央揃え */
-    align-items: center; /* 水平方向に中央揃え */
+    font-family: var(--font-family-base);
+    background-color: var(--color-background-body);
+    color: var(--color-text-primary);
+    line-height: 1.6;
   }
-  .container2 {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    display: flex;
-    align-items: center;
-  }
+  h1, h2, h3 { line-height: 1.3; }
+</style>
 
+<style>
+
+.center-focus-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 95vh; /* フッターのスペースを少し確保 */
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background-image: url('/background-image.png');
+  background-size: cover;
+  background-position: center;
+}
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 白の半透明の膜をかけて、テキストを読みやすくする */
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px); /* 背景を少しぼかす */
+}
+
+/* --- アニメーション設定 --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content-wrapper {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.main-title {
+  font-size: 3.8rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  /* グラデーションテキスト */
+  color: transparent;
+  background: linear-gradient(45deg, var(--color-accent), #4285f4);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+/* --- ナビゲーション --- */
+.primary-nav {
+  animation: fadeInUp 0.8s 0.2s ease-out forwards;
+  opacity: 0; /* アニメーション開始前の状態 */
+}
+.nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2.5rem; /* リンク間の余白を広げる */
+}
+.nav-item {
+  animation: fadeInUp 0.5s ease-out forwards;
+  animation-delay: var(--animation-delay, 0.5s);
+  opacity: 0;
+}
+
+.nav-link {
+  display: inline-block;
+  position: relative; /* 下線の基準点にする */
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-secondary); /* 通常時の色を少し薄くする */
+  text-decoration: none;
+  padding: 0.5rem 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary); /* ホバー時にメインのテキスト色に */
+}
+
+/* 下線アニメーション */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: center; /* 中央から広がるように */
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* --- レスポンシブ対応 --- */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.8rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
   .nav-list {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-    list-style: none;
-    display: flex;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 0.8rem;
   }
-
-  .nav-link {
-    color: #333;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .nav-link:hover {
-    color: #4666ff;
-    font-size: 2.5rem;
-  }
-  .pagetitle {
-    font-family: "Dancing Script", cursive;
-    font-optical-sizing: auto;
-    font-weight: <weight>;
-    font-style: normal;
-    font-size: 50px;
-    padding: 10px;
-    text-align: center; /* テキストを中央揃え */
-  }
+}
 </style>
